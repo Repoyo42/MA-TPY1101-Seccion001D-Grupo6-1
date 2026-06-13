@@ -12,6 +12,8 @@ import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.conectatarot.backend.repository.UsuarioRepository;
+import com.conectatarot.backend.repository.RolRepository;
 
 import java.util.List;
 
@@ -21,6 +23,8 @@ import java.util.List;
 public class TarotistaController {
 
     private final TarotistaService tarotistaService;
+    private final UsuarioRepository usuarioRepository;
+    private final RolRepository rolRepository;
 
     @PostMapping
     public ResponseEntity<ApiResponse<Tarotista>> crearTarotista(
@@ -71,4 +75,25 @@ public class TarotistaController {
         private Integer usuarioId;
         private String nombreProfesional;
     }
+  @PostMapping("/completar-perfil")
+  public ResponseEntity<?> completarPerfil(@RequestBody java.util.Map<String, Object> body) {
+     try {
+        Integer usuarioId = (Integer) body.get("usuarioId");
+        String nombreProfesional = (String) body.get("nombreProfesional");
+        String descripcion = (String) body.get("descripcion");
+        java.math.BigDecimal precioBase = new java.math.BigDecimal(body.get("precioBase").toString());
+        String email = (String) body.get("email");
+
+        Tarotista tarotista = tarotistaService.crearTarotista(usuarioId, nombreProfesional);
+        tarotista = tarotistaService.actualizarPerfil(tarotista.getId(), email, descripcion, precioBase);
+
+        var usuario = usuarioRepository.findById(usuarioId).orElseThrow();
+        usuario.setRol(rolRepository.findByNombreRol("TAROTISTA").orElseThrow());
+        usuarioRepository.save(usuario);
+
+        return ResponseEntity.ok(java.util.Map.of("success", true, "message", "Perfil de tarotista creado", "tarotistaId", tarotista.getId()));
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body(java.util.Map.of("success", false, "message", e.getMessage()));
+    }
+  }
 }
