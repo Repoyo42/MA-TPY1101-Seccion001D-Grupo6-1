@@ -62,10 +62,17 @@ public class PagoController {
             return ResponseEntity.status(500).body(Map.of("success", false, "message", e.getMessage()));
         }
     }
-
     @PostMapping("/confirmar")
+    public ResponseEntity<?> confirmarPagoPost(@RequestParam(required = false) String token_ws) {
+        return procesarConfirmacion(token_ws);
+    }
+
     @GetMapping("/confirmar")
-    public ResponseEntity<?> confirmarPago(@RequestParam(required = false) String token_ws) {
+    public ResponseEntity<?> confirmarPagoGet(@RequestParam(required = false) String token_ws) {
+        return procesarConfirmacion(token_ws);
+    }
+
+    private ResponseEntity<?> procesarConfirmacion(String token_ws) {
         try {
             if (token_ws == null) {
                 return ResponseEntity.ok("<html><body><h2>Pago cancelado o anulado</h2></body></html>");
