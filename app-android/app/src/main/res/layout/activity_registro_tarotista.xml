@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1a0a2e">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvVolverTarotista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Volver"
+            android:textColor="#9b59b6"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:text="🔮"
+            android:textSize="64sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:text="Registro de Tarotista"
+            android:textColor="#d4aaff"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:text="Tu perfil será revisado antes de activarse"
+            android:textColor="#9b59b6"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre completo"
+            android:textColor="#e8c3ff"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etNombreTarotista"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Tu nombre real"
+            android:textColor="#ffffff"
+            android:textColorHint="#9b59b6"
+            android:background="#2d1654"
+            android:padding="16dp"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textColor="#e8c3ff"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etEmailTarotista"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="tu@email.com"
+            android:textColor="#ffffff"
+            android:textColorHint="#9b59b6"
+            android:background="#2d1654"
+            android:padding="16dp"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contraseña"
+            android:textColor="#e8c3ff"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etPasswordTarotista"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="24dp"
+            android:background="#2d1654"
+            android:hint="Mínimo 6 caracteres"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#9b59b6" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#4d2580"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:text="Información profesional"
+            android:textColor="#d4aaff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre profesional"
+            android:textColor="#e8c3ff"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etNombreProfesional"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Ej: Luna Estrellada"
+            android:textColor="#ffffff"
+            android:textColorHint="#9b59b6"
+            android:background="#2d1654"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripción"
+            android:textColor="#e8c3ff"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etDescripcionTarotista"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Cuéntanos tu experiencia..."
+            android:textColor="#ffffff"
+            android:textColorHint="#9b59b6"
+            android:background="#2d1654"
+            android:padding="16dp"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio por hora (CLP)"
+            android:textColor="#e8c3ff"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <EditText
+            android:id="@+id/etPrecioTarotista"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Ej: 15000"
+            android:textColor="#ffffff"
+            android:textColorHint="#9b59b6"
+            android:background="#2d1654"
+            android:padding="16dp"
+            android:inputType="number"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Especialidades"
+            android:textColor="#e8c3ff"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cbTarotGeneral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tarot General"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbTarotEgipcio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tarot Egipcio"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbAstrologia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Astrología"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbAmor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amor y Relaciones"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbNumerologia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Numerología"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disponibilidad"
+            android:textColor="#e8c3ff"
+            android:textSize="14sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"/>
+
+        <CheckBox
+            android:id="@+id/cbLunes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lunes"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbMartes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Martes"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbMiercoles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Miércoles"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbJueves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jueves"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbViernes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Viernes"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbSabado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sabado"
+            android:textColor="#ffffff"/>
+
+        <CheckBox
+            android:id="@+id/cbDomingo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Domingo"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora inicio"
+            android:textColor="#e8c3ff"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etHoraInicio"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="09:00"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="#ffffff"
+            android:textColorHint="#9b59b6"
+            android:background="#2d1654"
+            android:padding="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora fin"
+            android:textColor="#e8c3ff"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etHoraFin"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="18:00"
+            android:focusable="false"
+            android:clickable="true"
+            android:textColor="#ffffff"
+            android:textColorHint="#9b59b6"
+            android:background="#2d1654"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp"/>
+
+        <Button
+            android:id="@+id/btnRegistrarTarotista"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Registrarme como Tarotista"
+            android:textColor="#ffffff"
+            android:backgroundTint="#7d3cae"
+            android:textSize="15sp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/tvResultadoTarotista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</ScrollView>
