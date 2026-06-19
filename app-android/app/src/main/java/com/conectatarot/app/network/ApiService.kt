@@ -97,6 +97,27 @@ interface ApiService {
 
     @GET("api/pagos/estado/{sesionId}")
     suspend fun estadoPago(@Path("sesionId") sesionId: Int): Response<EstadoPagoResponse>
+
+    @GET("api/admin/dashboard")
+    suspend fun getAdminDashboard(
+        @Header("Authorization") token: String
+    ): Response<AdminDashboardResponse>
+
+    @GET("api/admin/usuarios")
+    suspend fun getAdminUsuarios(
+        @Header("Authorization") token: String
+    ): Response<UsuariosAdminResponse>
+
+    @GET("api/admin/tarotistas/pendientes")
+    suspend fun getTarotistasPendientes(
+        @Header("Authorization") token: String
+    ): Response<TarotistasAdminResponse>
+
+    @PUT("api/admin/tarotistas/{id}/aprobar")
+    suspend fun aprobarTarotista(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Response<Any>
 }
 
 data class PagedData(
@@ -262,4 +283,44 @@ data class IniciarPagoResponse(
 data class EstadoPagoResponse(
     val success: Boolean,
     val estadoPago: String?
+)
+
+data class RolAdmin(
+    val idRol: Int?,
+    val nombreRol: String?
+)
+
+data class UsuarioAdmin(
+    val idUsuario: Int?,
+    val nombre: String?,
+    val email: String?,
+    val rol: RolAdmin?
+)
+
+data class UsuariosAdminResponse(
+    val success: Boolean,
+    val data: List<UsuarioAdmin>?
+)
+
+data class TarotistaAdmin(
+    val id: Int?,
+    val nombreProfesional: String?,
+    val estado: String?
+)
+
+data class TarotistasAdminResponse(
+    val success: Boolean,
+    val data: List<TarotistaAdmin>?
+)
+
+data class AdminDashboardDTO(
+    val usuarios: Long,
+    val tarotistas: Long,
+    val sesiones: Long,
+    val pendientes: Long
+)
+
+data class AdminDashboardResponse(
+    val success: Boolean,
+    val data: AdminDashboardDTO?
 )

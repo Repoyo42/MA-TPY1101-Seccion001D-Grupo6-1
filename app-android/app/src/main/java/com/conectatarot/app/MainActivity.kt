@@ -66,11 +66,37 @@ class MainActivity : AppCompatActivity() {
                             .apply()
 
                         val rol = body.rol
-                        if (rol == "TAROTISTA") {
-                            startActivity(Intent(this@MainActivity, TarotistaHomeActivity::class.java))
-                        } else {
-                            startActivity(Intent(this@MainActivity, ClienteActivity::class.java))
+
+                        when (rol) {
+
+                            "ADMIN" -> {
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        AdminActivity::class.java
+                                    )
+                                )
+                            }
+
+                            "TAROTISTA" -> {
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        TarotistaHomeActivity::class.java
+                                    )
+                                )
+                            }
+
+                            else -> {
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        ClienteActivity::class.java
+                                    )
+                                )
+                            }
                         }
+
                         finish()
                     } else {
                         tvError.text = "Credenciales incorrectas"
