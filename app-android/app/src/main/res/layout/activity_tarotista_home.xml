@@ -15,20 +15,11 @@
 
         <TextView
             android:id="@+id/tvBienvenidoTarotista"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textColor="#d4aaff"
             android:textSize="18sp"
             android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tvCerrarSesionTarotista"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Salir"
-            android:textColor="#e74c3c"
-            android:textSize="14sp"/>
 
     </LinearLayout>
 

@@ -2,6 +2,8 @@ package com.conectatarot.backend.controller;
 
 import com.conectatarot.backend.dto.RegistroUsuarioRequest;
 import com.conectatarot.backend.dto.UsuarioResponse;
+import com.conectatarot.backend.dto.EliminarCuentaRequest;
+import com.conectatarot.backend.dto.ApiResponse;
 import com.conectatarot.backend.entity.Usuario;
 import com.conectatarot.backend.service.UsuarioService;
 import org.springframework.http.HttpStatus;
@@ -64,5 +66,18 @@ public class UsuarioController {
        } catch (RuntimeException e) {
        	   return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
        }
-}    
+    }
+
+    @PostMapping("/{id}/eliminar")
+    public ResponseEntity<?> eliminarCuenta(@PathVariable Integer id, @RequestBody EliminarCuentaRequest request) {
+        try {
+            usuarioService.eliminarUsuario(id, request.getPassword());
+            return ResponseEntity.ok(ApiResponse.ok("Cuenta eliminada correctamente", null));
+        } catch (RuntimeException e) {
+            if (e.getMessage().equals("Contraseña incorrecta")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponse.error(e.getMessage()));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ApiResponse.error(e.getMessage()));
+        }
+    }
 }

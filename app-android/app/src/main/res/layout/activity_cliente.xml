@@ -76,15 +76,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tvLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Salir"
-            android:textColor="#e74c3c"
-            android:textSize="14sp"
-            android:padding="8dp"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTarotistas"
             android:layout_width="match_parent"

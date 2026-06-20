@@ -23,15 +23,9 @@ class TarotistaHomeActivity : AppCompatActivity() {
 
         val rvAgenda = findViewById<RecyclerView>(R.id.rvAgenda)
         val tvEmpty = findViewById<TextView>(R.id.tvEmptyAgenda)
-        val tvCerrar = findViewById<TextView>(R.id.tvCerrarSesionTarotista)
 
         rvAgenda.layoutManager = LinearLayoutManager(this)
 
-        tvCerrar.setOnClickListener {
-            getSharedPreferences("conectatarot", MODE_PRIVATE).edit().clear().apply()
-            startActivity(android.content.Intent(this, MainActivity::class.java))
-            finish()
-        }
         cargarSesiones(token, rvAgenda, tvEmpty)
 
         findViewById<android.widget.Button>(R.id.btnEditarPerfilTarotista).setOnClickListener {

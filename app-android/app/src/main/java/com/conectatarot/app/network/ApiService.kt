@@ -118,7 +118,18 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): Response<Any>
+
+    @POST("api/usuarios/{id}/eliminar")
+    suspend fun eliminarCuenta(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Body request: EliminarCuentaRequest
+    ): Response<Any>
 }
+
+data class EliminarCuentaRequest(
+    val password: String
+)
 
 data class PagedData(
     val content: List<SesionItem>?,
