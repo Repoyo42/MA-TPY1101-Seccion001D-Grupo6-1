@@ -49,7 +49,7 @@ public class SecurityConfig {
         	       		 "/api/auth/google",
 		       		 "/api/usuarios",
 				 "/api/pagos/**",
-                                 "/api/tarotistas/**"
+                                 "/api/tarotistas/**",
                                  "/api/resenas/**"
                 )
                         .permitAll()
