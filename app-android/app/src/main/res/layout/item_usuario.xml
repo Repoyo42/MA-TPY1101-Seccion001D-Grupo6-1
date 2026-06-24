@@ -29,4 +29,33 @@
         android:layout_height="wrap_content"
         android:textColor="#9b59b6"/>
 
+    <TextView
+        android:id="@+id/tvEstado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#D4AAFF"
+        android:layout_marginTop="4dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnBloquear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bloquear"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btnDesbloquear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Desbloquear"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 
 class GestionUsuariosActivity : AppCompatActivity() {
 
+    private lateinit var rvUsuarios: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -109,11 +111,28 @@ class GestionUsuariosActivity : AppCompatActivity() {
             }
         }
 
-        val rvUsuarios =
-            findViewById<RecyclerView>(R.id.rvUsuarios)
+        rvUsuarios =
+            findViewById(R.id.rvUsuarios)
 
         rvUsuarios.layoutManager =
             LinearLayoutManager(this)
+
+        cargarUsuarios()
+    }
+
+    private fun cargarUsuarios() {
+
+        val prefs =
+            getSharedPreferences(
+                "conectatarot",
+                MODE_PRIVATE
+            )
+
+        val token =
+            prefs.getString(
+                "token",
+                ""
+            ) ?: ""
 
         lifecycleScope.launch {
 
@@ -125,13 +144,99 @@ class GestionUsuariosActivity : AppCompatActivity() {
                             "Bearer $token"
                         )
 
-                if (response.isSuccessful) {
+                if (
+                    response.isSuccessful &&
+                    response.body() != null
+                ) {
 
                     val usuarios =
-                        response.body()?.data ?: emptyList()
+                        response.body()!!.data ?: emptyList()
 
                     rvUsuarios.adapter =
-                        UsuarioAdapter(usuarios)
+                        UsuarioAdapter(
+                            usuarios,
+                            onBloquear = { id ->
+                                cambiarEstadoUsuario(id, bloquear = true)
+                            },
+                            onDesbloquear = { id ->
+                                cambiarEstadoUsuario(id, bloquear = false)
+                            }
+                        )
+
+                } else {
+
+                    Toast.makeText(
+                        this@GestionUsuariosActivity,
+                        "Error ${response.code()}",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                }
+
+            } catch (e: Exception) {
+
+                Toast.makeText(
+                    this@GestionUsuariosActivity,
+                    "Error de conexión",
+                    Toast.LENGTH_LONG
+                ).show()
+
+            }
+
+        }
+    }
+
+    private fun cambiarEstadoUsuario(
+        id: Int,
+        bloquear: Boolean
+    ) {
+
+        val prefs =
+            getSharedPreferences(
+                "conectatarot",
+                MODE_PRIVATE
+            )
+
+        val token =
+            prefs.getString(
+                "token",
+                ""
+            ) ?: ""
+
+        lifecycleScope.launch {
+
+            try {
+
+                val response =
+                    if (bloquear) {
+                        RetrofitClient.instance.bloquearUsuario(
+                            "Bearer $token",
+                            id
+                        )
+                    } else {
+                        RetrofitClient.instance.desbloquearUsuario(
+                            "Bearer $token",
+                            id
+                        )
+                    }
+
+                if (response.isSuccessful) {
+
+                    Toast.makeText(
+                        this@GestionUsuariosActivity,
+                        if (bloquear) "Usuario bloqueado" else "Usuario desbloqueado",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    cargarUsuarios()
+
+                } else {
+
+                    Toast.makeText(
+                        this@GestionUsuariosActivity,
+                        "Error al cambiar estado",
+                        Toast.LENGTH_LONG
+                    ).show()
 
                 }
 

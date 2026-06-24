@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.conectatarot.app.network.ApiErrorResponse
 import com.conectatarot.app.network.LoginRequest
 import com.conectatarot.app.network.RetrofitClient
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -96,7 +98,21 @@ class MainActivity : AppCompatActivity() {
 
                         finish()
                     } else {
-                        tvError.text = "Credenciales incorrectas"
+                        val errorMessage = response.errorBody()?.string()?.let { body ->
+                            Gson().fromJson(body, ApiErrorResponse::class.java).message
+                        }
+
+                        if (errorMessage != null && errorMessage.contains("bloqueada")) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                errorMessage,
+                                Toast.LENGTH_LONG
+                            ).show()
+                            tvError.text = ""
+                        } else {
+                            tvError.text = "Credenciales incorrectas"
+                        }
+
                         btnLogin.isEnabled = true
                         btnLogin.text = "Iniciar sesión"
                     }

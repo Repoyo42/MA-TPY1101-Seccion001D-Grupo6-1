@@ -2,6 +2,7 @@ package com.conectatarot.backend.service;
 
 import com.conectatarot.backend.entity.Rol;
 import com.conectatarot.backend.entity.Usuario;
+import com.conectatarot.backend.exception.NotFoundException;
 import com.conectatarot.backend.repository.RolRepository;
 import com.conectatarot.backend.repository.UsuarioRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -49,5 +50,19 @@ public class UsuarioService {
        usuario.setNombre(nombre);
        usuario.setEmail(email);
        return usuarioRepository.save(usuario); 
+    }
+
+    public Usuario bloquearUsuario(Integer id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+        usuario.setActivo(false);
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario desbloquearUsuario(Integer id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado"));
+        usuario.setActivo(true);
+        return usuarioRepository.save(usuario);
     }
 }

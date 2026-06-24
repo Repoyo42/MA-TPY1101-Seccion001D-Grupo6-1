@@ -6,8 +6,10 @@ import com.conectatarot.backend.entity.Usuario;
 import com.conectatarot.backend.repository.SesionRepository;
 import com.conectatarot.backend.repository.TarotistaRepository;
 import com.conectatarot.backend.repository.UsuarioRepository;
+import com.conectatarot.backend.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class AdminController {
     private final UsuarioRepository usuarioRepository;
     private final TarotistaRepository tarotistaRepository;
     private final SesionRepository sesionRepository;
+    private final UsuarioService usuarioService;
 
     @GetMapping("/dashboard")
     public ResponseEntity<?> dashboard() {
@@ -86,6 +89,38 @@ public class AdminController {
                 Map.of(
                         "success", true,
                         "message", "Tarotista aprobado"
+                )
+        );
+    }
+
+    @PutMapping("/usuarios/{id}/bloquear")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> bloquear(
+            @PathVariable Integer id
+    ) {
+
+        usuarioService.bloquearUsuario(id);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "success", true,
+                        "message", "Usuario bloqueado"
+                )
+        );
+    }
+
+    @PutMapping("/usuarios/{id}/desbloquear")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> desbloquear(
+            @PathVariable Integer id
+    ) {
+
+        usuarioService.desbloquearUsuario(id);
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "success", true,
+                        "message", "Usuario desbloqueado"
                 )
         );
     }

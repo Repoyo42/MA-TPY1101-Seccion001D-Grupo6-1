@@ -118,6 +118,18 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): Response<Any>
+
+    @PUT("api/admin/usuarios/{id}/bloquear")
+    suspend fun bloquearUsuario(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Response<Any>
+
+    @PUT("api/admin/usuarios/{id}/desbloquear")
+    suspend fun desbloquearUsuario(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Response<Any>
 }
 
 data class PagedData(
@@ -294,6 +306,7 @@ data class UsuarioAdmin(
     val idUsuario: Int?,
     val nombre: String?,
     val email: String?,
+    val activo: Boolean?,
     val rol: RolAdmin?
 )
 
@@ -323,4 +336,9 @@ data class AdminDashboardDTO(
 data class AdminDashboardResponse(
     val success: Boolean,
     val data: AdminDashboardDTO?
+)
+
+data class ApiErrorResponse(
+    val success: Boolean?,
+    val message: String?
 )
