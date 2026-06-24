@@ -2,11 +2,13 @@ package com.conectatarot.backend.service;
 
 import com.conectatarot.backend.dto.SesionRequestDTO;
 import com.conectatarot.backend.dto.SesionResponseDTO;
+import com.conectatarot.backend.dto.AdminPagoDTO;
 import com.conectatarot.backend.entity.*;
 import com.conectatarot.backend.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -171,6 +173,13 @@ public class SesionService {
         return convertirADTO(sesionRepository.save(sesion));
     }
 
+    public List<AdminPagoDTO> listarPagosAdmin() {
+        return sesionRepository.findAll(Sort.by(Sort.Direction.DESC, "fechaCreacion"))
+                .stream()
+                .map(this::convertirAPagoAdminDTO)
+                .collect(Collectors.toList());
+    }
+
     private boolean estaDentroDeDisponibilidad(
             Integer tarotistaId,
             LocalDateTime fecha,
@@ -245,7 +254,19 @@ public class SesionService {
                 .duracionMinutos(sesion.getDuracionMinutos())
                 .precioTotal(sesion.getPrecioTotal())
                 .estado(sesion.getEstado())
-		.estadoPago(sesion.getEstadoPago())
+                .estadoPago(sesion.getEstadoPago())
+                .build();
+    }
+
+    private AdminPagoDTO convertirAPagoAdminDTO(Sesion sesion) {
+        return AdminPagoDTO.builder()
+                .id(sesion.getId())
+                .idSesion(sesion.getId())
+                .nombreCliente(sesion.getUsuario().getNombre())
+                .nombreTarotista(sesion.getTarotista().getNombreProfesional())
+                .monto(sesion.getPrecioTotal())
+                .estadoPago(sesion.getEstadoPago())
+                .fechaPago(sesion.getFechaCreacion())
                 .build();
     }
 }

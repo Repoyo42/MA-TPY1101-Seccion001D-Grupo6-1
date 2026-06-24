@@ -97,6 +97,18 @@ class AdminActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.nav_pagos -> {
+
+                    startActivity(
+                        Intent(
+                            this,
+                            GestionPagosActivity::class.java
+                        )
+                    )
+
+                    true
+                }
+
                 else -> true
             }
         }

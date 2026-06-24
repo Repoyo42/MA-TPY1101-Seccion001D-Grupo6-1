@@ -16,4 +16,9 @@
         android:title="Tarotistas"
         android:icon="@android:drawable/ic_menu_agenda"/>
 
+    <item
+        android:id="@+id/nav_pagos"
+        android:title="Pagos"
+        android:icon="@android:drawable/ic_menu_send"/>
+
 </menu>

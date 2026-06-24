@@ -12,14 +12,14 @@ import com.conectatarot.app.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
-class GestionTarotistasActivity : AppCompatActivity() {
+class GestionPagosActivity : AppCompatActivity() {
 
-    private lateinit var rvTarotistas: RecyclerView
+    private lateinit var rvPagos: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_gestion_tarotistas)
+        setContentView(R.layout.activity_gestion_pagos)
 
         val prefs =
             getSharedPreferences(
@@ -77,7 +77,7 @@ class GestionTarotistasActivity : AppCompatActivity() {
         val bottomNav =
             findViewById<BottomNavigationView>(R.id.bottomNav)
 
-        bottomNav.selectedItemId = R.id.nav_tarotistas
+        bottomNav.selectedItemId = R.id.nav_pagos
 
         bottomNav.setOnItemSelectedListener { item ->
 
@@ -107,12 +107,12 @@ class GestionTarotistasActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.nav_pagos -> {
+                R.id.nav_tarotistas -> {
 
                     startActivity(
                         Intent(
                             this,
-                            GestionPagosActivity::class.java
+                            GestionTarotistasActivity::class.java
                         )
                     )
 
@@ -123,16 +123,16 @@ class GestionTarotistasActivity : AppCompatActivity() {
             }
         }
 
-        rvTarotistas =
-            findViewById(R.id.rvTarotistas)
+        rvPagos =
+            findViewById(R.id.rvPagos)
 
-        rvTarotistas.layoutManager =
+        rvPagos.layoutManager =
             LinearLayoutManager(this)
 
-        cargarTarotistasPendientes()
+        cargarPagos()
     }
 
-    private fun cargarTarotistasPendientes() {
+    private fun cargarPagos() {
 
         val prefs =
             getSharedPreferences(
@@ -152,7 +152,7 @@ class GestionTarotistasActivity : AppCompatActivity() {
 
                 val response =
                     RetrofitClient.instance
-                        .getTarotistasPendientes(
+                        .getAdminPagos(
                             "Bearer $token"
                         )
 
@@ -161,23 +161,16 @@ class GestionTarotistasActivity : AppCompatActivity() {
                     response.body() != null
                 ) {
 
-                    val lista =
+                    val pagos =
                         response.body()!!.data ?: emptyList()
 
-                    rvTarotistas.adapter =
-                        TarotistaAdminAdapter(
-                            lista
-                        ) { tarotistaId ->
-
-                            aprobarTarotista(
-                                tarotistaId
-                            )
-                        }
+                    rvPagos.adapter =
+                        PagoAdminAdapter(pagos)
 
                 } else {
 
                     Toast.makeText(
-                        this@GestionTarotistasActivity,
+                        this@GestionPagosActivity,
                         "Error ${response.code()}",
                         Toast.LENGTH_LONG
                     ).show()
@@ -187,67 +180,7 @@ class GestionTarotistasActivity : AppCompatActivity() {
             } catch (e: Exception) {
 
                 Toast.makeText(
-                    this@GestionTarotistasActivity,
-                    "Error de conexión",
-                    Toast.LENGTH_LONG
-                ).show()
-
-            }
-
-        }
-    }
-
-    private fun aprobarTarotista(
-        tarotistaId: Int
-    ) {
-
-        val prefs =
-            getSharedPreferences(
-                "conectatarot",
-                MODE_PRIVATE
-            )
-
-        val token =
-            prefs.getString(
-                "token",
-                ""
-            ) ?: ""
-
-        lifecycleScope.launch {
-
-            try {
-
-                val response =
-                    RetrofitClient.instance
-                        .aprobarTarotista(
-                            "Bearer $token",
-                            tarotistaId
-                        )
-
-                if (response.isSuccessful) {
-
-                    Toast.makeText(
-                        this@GestionTarotistasActivity,
-                        "Tarotista aprobado",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    cargarTarotistasPendientes()
-
-                } else {
-
-                    Toast.makeText(
-                        this@GestionTarotistasActivity,
-                        "Error al aprobar",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                }
-
-            } catch (e: Exception) {
-
-                Toast.makeText(
-                    this@GestionTarotistasActivity,
+                    this@GestionPagosActivity,
                     "Error de conexión",
                     Toast.LENGTH_LONG
                 ).show()

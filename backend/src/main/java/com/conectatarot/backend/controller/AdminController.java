@@ -7,6 +7,7 @@ import com.conectatarot.backend.repository.SesionRepository;
 import com.conectatarot.backend.repository.TarotistaRepository;
 import com.conectatarot.backend.repository.UsuarioRepository;
 import com.conectatarot.backend.service.UsuarioService;
+import com.conectatarot.backend.service.SesionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +25,7 @@ public class AdminController {
     private final TarotistaRepository tarotistaRepository;
     private final SesionRepository sesionRepository;
     private final UsuarioService usuarioService;
+    private final SesionService sesionService;
 
     @GetMapping("/dashboard")
     public ResponseEntity<?> dashboard() {
@@ -54,6 +56,18 @@ public class AdminController {
                 Map.of(
                         "success", true,
                         "data", usuarios
+                )
+        );
+    }
+
+    @GetMapping("/pagos")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> pagos() {
+
+        return ResponseEntity.ok(
+                Map.of(
+                        "success", true,
+                        "data", sesionService.listarPagosAdmin()
                 )
         );
     }

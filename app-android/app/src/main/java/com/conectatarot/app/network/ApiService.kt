@@ -130,6 +130,11 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: Int
     ): Response<Any>
+
+    @GET("api/admin/pagos")
+    suspend fun getAdminPagos(
+        @Header("Authorization") token: String
+    ): Response<PagosAdminResponse>
 }
 
 data class PagedData(
@@ -341,4 +346,19 @@ data class AdminDashboardResponse(
 data class ApiErrorResponse(
     val success: Boolean?,
     val message: String?
+)
+
+data class PagoAdmin(
+    val id: Int?,
+    val idSesion: Int?,
+    val nombreCliente: String?,
+    val nombreTarotista: String?,
+    val monto: Double?,
+    val estadoPago: String?,
+    val fechaPago: String?
+)
+
+data class PagosAdminResponse(
+    val success: Boolean,
+    val data: List<PagoAdmin>?
 )
